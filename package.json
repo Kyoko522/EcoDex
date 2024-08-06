@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@datastax/astra-db-ts": "^1.4.1",
+    "formik": "^2.4.6",
     "next": "14.2.5",
     "openai": "^4.54.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.2.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^8",
