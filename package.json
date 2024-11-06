@@ -11,7 +11,8 @@
   "dependencies": {
     "@datastax/astra-db-ts": "^1.4.1",
     "formik": "^2.4.6",
-    "next": "14.2.5",
+    "next": "^14.2.17",
+    "next-cloudinary": "^6.16.0",
     "openai": "^4.54.0",
     "react": "^18",
     "react-dom": "^18",
