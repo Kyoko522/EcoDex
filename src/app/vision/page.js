@@ -52,7 +52,9 @@ const Vision = () => {
                     value={formik.values.image_url}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    type={ "text" }
                 />
+
                 {formik.touched.image_url && formik.errors.image_url && (
                     <div>{formik.errors.image_url}</div>
                 )}
@@ -60,12 +62,13 @@ const Vision = () => {
                     Submit
                 </button>
             </form>
+
+           
            
             {response && (
                 <div>
                     <h2>Response:</h2>
                     <p>{response.content}</p>
-                    <h2>Message should be above this</h2>
                 </div>
             )}
             {formik.values.image_url && (
