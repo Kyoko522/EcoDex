@@ -6,6 +6,7 @@ import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
 import { CldImage } from 'next-cloudinary';
 
 const Vision = () => {
+    // states
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [response, setResponse] = useState(null);
@@ -13,6 +14,7 @@ const Vision = () => {
     const [capturedImage, setCapturedImage] = useState(null);
     const videoRef = useRef(null);
 
+    //handle the url text field and call the api call
     const formik = useFormik({
         initialValues: {
             image_url: "",
@@ -25,6 +27,7 @@ const Vision = () => {
             setError(null);
             setResponse(null);
             try {
+                //api call save status to res
                 const res = await fetch('/api/vision', {
                     method: 'POST',
                     headers: {
@@ -32,7 +35,6 @@ const Vision = () => {
                     },
                     body: JSON.stringify(values),
                 });
-
                 if (!res.ok) {
                     throw new Error('Failed to fetch the response');
                 }
@@ -46,10 +48,11 @@ const Vision = () => {
         },
     });
 
+
     // Toggle camera mode and start/stop video feed
     const handleCameraToggle = async () => {
-        setCameraMode(!cameraMode);
-        if (!cameraMode) {
+        setCameraMode(!cameraMode); // Toggle camera mode
+        if (!cameraMode) { //if cameraMode is false because if it's false now it was toggle from true to false
             // Start video stream
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 try {
@@ -90,9 +93,7 @@ const Vision = () => {
                 <div className="button-b">B</div>
                 <div className="button-c">C</div>
                 <div className="button-d">D</div>
-                {/* <div className="button-dpad">
-
-                </div> */}
+                {/* <div className="button-dpad"></div> */}
             </div>
             <h1 className="gameboy-title">EcoDex Vision</h1>
 
@@ -102,30 +103,36 @@ const Vision = () => {
                 ) : capturedImage ? (
                     <img src={capturedImage} alt="Captured" className="image-preview" />
                 ) : formik.values.image_url ? (
-                    <img src={formik.values.image_url} alt="URL Preview" className="image-preview" />
+                    <img src={formik.values.image_url} alt="URL Preview not Found" className="image-preview" />
                 ) : (
                     <p className="screen-text">Waiting for URL or Camera...</p>
                 )}
             </div>
 
             <form onSubmit={formik.handleSubmit} className="form-container">
-                {/* Conditionally render the text area if the camera is not in use */}
+                {/* show the url textfield when the camera mode is OFF, hide if the camera mode is ON */}
                 {!cameraMode && (
-                    <textarea
-                        name="image_url"
-                        placeholder="Enter image URL"
-                        value={formik.values.image_url}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        className="textarea"
-                        type="text"
-                    />
-                )}
+                        <textarea
+                            name="image_url"
+                            placeholder="Enter image URL"
+                            value={formik.values.image_url}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            className="textarea"
+                            type="text"
+                        />
+                    )}
+
+
                 {formik.touched.image_url && formik.errors.image_url && !cameraMode && (
                     <div className="error-container">
                         <FaExclamationCircle /> {formik.errors.image_url}
                     </div>
                 )}
+                
+                <button type="button" onClick={handleCameraToggle} className="start-button">
+                    {cameraMode ? "Close Camera" : "Open Camera"}
+                </button>
 
                 {cameraMode && (
                     <button type="button" onClick={handleCapture} className="start-button">
@@ -137,7 +144,9 @@ const Vision = () => {
                     {loading ? <FaSpinner className="spinner" /> : "Analyze"}
                 </button>
                 {error && <div className="error-container">{error}</div>}
+
             </form>
+
             {response && (
                 <div className="response-container">
                     <h2>Response:</h2>
@@ -175,7 +184,7 @@ const Vision = () => {
                     margin-bottom: 1.5rem;
                 }
 
-                .button-a, .button-b, .button-c, .button-d {
+                .button-a, .button-b, .button-c, .button-d{
                     width: 40px;
                     height: 40px;
                     background-color: #d84797;
