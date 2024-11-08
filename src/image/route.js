@@ -40,7 +40,7 @@ const Image = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        model: "gpt-4o-mini",  // Model info from the API documentation
+                        model: "gpt-4o",
                         messages: [
                             {
                                 role: "user",
