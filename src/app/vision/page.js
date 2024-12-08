@@ -86,13 +86,15 @@ const Vision = () => {
         }
     };
 
+    
+
     return (
         <div className="gameboy-container">
             <div className="fake-buttons">
-                <div className="button-a">A</div>
-                <div className="button-b">B</div>
-                <div className="button-c">C</div>
-                <div className="button-d">D</div>
+                <a className="button-a">A</a>
+                <a href="/" className='button-b'>B</a>
+                <a className="button-c">C</a>
+                <a href="/database" className="button-d">D</a>
                 {/* <div className="button-dpad"></div> */}
             </div>
             <h1 className="gameboy-title">EcoDex Vision</h1>
