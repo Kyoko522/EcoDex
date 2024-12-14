@@ -13,6 +13,7 @@
     "formik": "^2.4.6",
     "mongodb": "^6.10.0",
     "next": "^14.2.17",
+    "next-auth": "^4.24.11",
     "next-cloudinary": "^6.16.0",
     "openai": "^4.54.0",
     "react": "^18",
