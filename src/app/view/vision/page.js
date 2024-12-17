@@ -103,7 +103,7 @@ const Vision = () => {
                 <a className="button-a">A</a>
                 <a href="/" className='button-b'>B</a>
                 <a className="button-c">C</a>
-                <a href="/database" className="button-d">D</a>
+                <a href="./database" className="button-d">D</a>
                 {/* <div className="button-dpad"></div> */}
             </div>
             <h1 className="gameboy-title">EcoDex Vision</h1>

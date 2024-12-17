@@ -19,12 +19,12 @@ export default function Home() {
         />
       </div>
 
-      <a href="/view/vision" className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition bg-clip-padding">
-        Go to Vision Page
+      <a href="/view/vision" className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition bg-clip-padding my-7">
+        View Demo
       </a>
       
       <a href="/view/database" className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-        Go to Datbase
+        View Database
       </a>
 
       <section className="mt-12 text-center">
