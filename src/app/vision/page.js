@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
 import { CldImage } from 'next-cloudinary';
+import { setImageUrl } from '../../shared';
 
 const Vision = () => {
     // states
@@ -26,6 +27,14 @@ const Vision = () => {
             setLoading(true);
             setError(null);
             setResponse(null);
+            try {
+                setImageUrl(values.image_url);
+                // console.log("Image URL passed to shared.js", values.image_url);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
             try {
                 //api call save status to res
                 const res = await fetch('/api/vision', {
@@ -310,4 +319,3 @@ const Vision = () => {
 }
 
 export default Vision;
-

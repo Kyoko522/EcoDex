@@ -1,16 +1,16 @@
- import { NextResponse } from "next/server";
- import { DataAPIClient } from "@datastax/astra-db-ts";
+import { getImageUrl } from "../../../shared" // Adjust the path to shared.js
 
-// Initialize the client
-const client = new DataAPIClient(process.env.db_token);
-const db = client.db('https://af4d97d3-7253-428b-aa43-ef73fc8c40f4-us-east-2.apps.astra.datastax.com');
+import fs from 'fs'; // ES Module import
 
-export async function GET(req){
-    const colls = await db.listCollections();
-    console.log('Connected to Astra database', colls);
+// Retrieve image URL
+console.log("Retrieved Image URL:", getImageUrl());
+const data = getImageUrl(); // Fetch image URL from shared.js
 
-    return new NextResponse(JSON.stringify({
-        message: 'Success',
-        success: true,
-    }))
-}
+// Write data to a file asynchronously
+fs.writeFile('output.txt', data, (err) => {
+    if (err) {
+        console.error("Error writing to file:", err);
+    } else {
+        console.log("File written successfully!");
+    }
+});
