@@ -40,6 +40,7 @@
 .login-button {
     background-color: #d84797;
     color: white;
+    margin: 12px;
     padding: 0.75rem 1.5rem;
     border: 2px solid #b13677;
     border-radius: 8px;
