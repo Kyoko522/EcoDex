@@ -12,6 +12,16 @@
         position: relative;
     }
 
+    body {
+        background-color: #9FCC92; /* Base green color for the background */
+        background-image: 
+            radial-gradient(circle, #E8F0E0 2px, transparent 2px); /* Small light green circles */
+        background-size: 30px 30px; /* Repetition spacing of the pattern */
+        background-repeat: repeat; /* Repeat the background image */
+        margin: 0;
+        padding: 0;
+    }
+
     .gameboy-title {
         font-family: 'Courier New', Courier, monospace;
         font-weight: bold;

@@ -1,0 +1,84 @@
+/* Login Page Container */
+.login-container {
+    max-width: 400px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9); /* Slight white transparency for contrast */
+    border: 6px solid #a8a8a8;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Title Styling */
+.login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4b4b4b;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px #e0e0e0;
+}
+
+/* Input Field Styling */
+.login-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.2rem;
+    border: 2px solid #4b4b4b;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+}
+
+/* Button Styling */
+.login-button {
+    background-color: #d84797;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #b13677;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.login-button:hover {
+    background-color: #b13677;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.login-button:active {
+    background-color: #8c1e5e;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Background Styling with Image */
+body {
+    background-color: #9FCC92; /* Base green color for the background */
+    background-image: 
+        radial-gradient(circle, #E8F0E0 2px, transparent 2px); /* Small light green circles */
+    background-size: 30px 30px; /* Repetition spacing of the pattern */
+    background-repeat: repeat; /* Repeat the background image */
+    margin: 0;
+    padding: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

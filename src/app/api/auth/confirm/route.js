@@ -1,5 +1,3 @@
-import { NextRequest } from 'next/server'
-
 //TODO: Change the path of the location of util changes to databse in api folder 
 import { createClient } from '../../../../utils/supabase/server'
 import { redirect } from 'next/navigation'
