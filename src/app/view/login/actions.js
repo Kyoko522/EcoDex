@@ -3,8 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-// TODO: chage this path if you plae the util file under the app/api folder
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '../../../utils/supabase/server'
 
 export async function login(formData) {
   const supabase = await createClient()
@@ -42,6 +41,6 @@ export async function signup(formData) {
     redirect('/error')
   }
 
-  revalidatePath('/', 'layout') //show the updated info for only login users
-  redirect('/')//TODO: need to change path since ladning page isn't are home page do this later 
+  revalidatePath('/', 'layout')
+  redirect('/')
 }
