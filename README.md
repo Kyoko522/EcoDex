@@ -7,7 +7,7 @@ EcoDex is a Next.js web application that identifies plants and bugs using AI. Us
 ## **Getting Started**
 
 ### **1. Prerequisites**
-- Node.js >= 16
+- Node.js => 16
 - npm or yarn
 - OpenAI API Key (required for AI image analysis)
 
