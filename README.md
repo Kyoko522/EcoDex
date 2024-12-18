@@ -55,31 +55,48 @@ Shared Functions
 Project Structure
 ```bash
 ecodex/
-├── public/                        # Static assets
-│   └── images/                    # Static images (e.g., landing_image.jpg)
+├── public/                          # Static assets
+│   └── images/                      # Static images (e.g., landing_image.jpg, grassBackground.png)
 │
 ├── src/
 │   ├── app/
-│   │   ├── page.js                # Landing Page
+│   │   ├── page.js                  # Landing Page
 │   │   ├── view/
 │   │   │   ├── vision/
-│   │   │   │   ├── page.js        # Vision Page (camera & image analysis)
-│   │   │   │   └── vision.css     # CSS for Vision Page
-│   │   │   └── database/
-│   │   │       └── page.js        # Database Page
+│   │   │   │   ├── page.js          # Vision Page (camera & image analysis)
+│   │   │   │   └── vision.css       # CSS for Vision Page
+│   │   │   ├── database/
+│   │   │   │   └── page.js          # Database Page
+│   │   │   └── login/ 
+│   │   │       ├── page.js          # Login Page
+│   │   │       └── login.css        # CSS for Login Page
+│   │   │
 │   │   ├── api/
 │   │   │   ├── vision/
-│   │   │   │   └── route.js       # API route for image analysis
-│   │   │   └── db/
-│   │   │       └── route.js       # API route for database interaction
-│   │   └── layout.js              # Layout wrapper
+│   │   │   │   └── route.js         # API route for image analysis
+│   │   │   ├── db/
+│   │   │   │   └── route.js         # API route for database interaction
+│   │   │   └── auth/
+│   │   │       └── confirm/route.js # API route for email confirmation
+│   │   │
+│   │   ├── middleware.js            # Middleware to protect routes
+│   │   └── layout.js                # Layout wrapper
+│   │
+│   ├── utils/
+│   │   ├── supabase/
+│   │   │   ├── server.js            # Supabase server-side client
+│   │   │   └── middleware.js        # Supabase middleware for session handling
+│   │   └── actions.js               # Actions for login and signup (server-side)
+│   │
+│   ├── shared.js                    # Shared variables & functions
+│   └── styles/
+│       └── globals.css              # Global styles for the project
 │
-│   ├── shared.js                  # Shared variables & functions
-│   └── styles/                    # Global styles (if applicable)
-│
-├── .env                           # Environment variables
-├── README.md                      # Project documentation
-└── package.json                   # Project metadata and scripts
+├── .env                             # Environment variables (Supabase keys, etc.)
+├── .gitignore                       # Ignored files in version control
+├── README.md                        # Project documentation
+├── package.json                     # Project metadata and scripts
+└── package-lock.json                # Lockfile for dependencies
 ```
 Key Files
 
@@ -104,7 +121,22 @@ API
 	•	Communicates with external APIs (e.g., OpenAI GPT-4o) for analysis.
 	•	Database API (src/app/api/db/route.js)
 	•	Placeholder for database operations.
+ 	•	Email confirmation API: src/app/api/auth/confirm/route.js
+  	•	Verifies email confirmation tokens during sign-up (e.g. from Supabase).
+   
+Middleware
+	•	Route protection middleware: src/app/middleware.js
+ 	•	Protects routes like /view/vision and view/database
+  	•	Redirects unauthenticated users to /view/login/ while allowing access to /.
 
+Utilities
+	•	Supabase Server Client: src/utils/supabase/server.js
+ 	•	Handles server-side Supabase setup API routes and session management
+  	•	Supabase Middleware: src/utils/superbase/middleware.js
+   	•	Manages sessions and authenticates verification
+   	•	Actions: src/utils/actions.js
+   	•	Handles server-side actions for login and sign-up functionality 
+   
 How It Works
 	1.	Run the App:
 	•	Start the development server and open http://localhost:3000.
