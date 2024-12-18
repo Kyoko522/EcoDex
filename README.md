@@ -12,14 +12,14 @@ Getting Started
 	•	OpenAI API Key (required for AI image analysis)
 
 2. Clone the Repository
-
+```
 git clone https://github.com/your-repo/ecodex.git
 cd ecodex
-
+```
 3. Install Dependencies
-
+```
 npm install
-
+```
 4. Configure Environment Variables
 
 Create a .env file in the root directory:
@@ -27,9 +27,9 @@ Create a .env file in the root directory:
 OPENAI_KEY=your_openai_api_key
 
 5. Run the Development Server
-
+```
 npm run dev
-
+```
 Open http://localhost:3000 to view the app.
 
 Features
@@ -53,7 +53,7 @@ Shared Functions
 	•	setImageUrl(url) and getImageUrl(): Manage shared state between frontend components and backend.
 
 Project Structure
-
+```
 ecodex/
 ├── public/                        # Static assets
 │   └── images/                    # Static images (e.g., landing_image.jpg)
@@ -80,7 +80,7 @@ ecodex/
 ├── .env                           # Environment variables
 ├── README.md                      # Project documentation
 └── package.json                   # Project metadata and scripts
-
+```
 Key Files
 
 Frontend
