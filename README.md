@@ -66,7 +66,8 @@ ecodex/
 │   │   │   │   ├── page.js          # Vision Page (camera & image analysis)
 │   │   │   │   └── vision.css       # CSS for Vision Page
 │   │   │   ├── database/
-│   │   │   │   └── page.js          # Database Page
+│   │   │       ├── page.js          # Database Page
+│   │   │       └── database.css        # CSS for Database Page
 │   │   │   └── login/ 
 │   │   │       ├── page.js          # Login Page
 │   │   │       └── login.css        # CSS for Login Page
