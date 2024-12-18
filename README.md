@@ -1,5 +1,3 @@
-Here is the full README.md content with proper Markdown formatting. You can copy it directly and paste it into your README.md file:
-
 # **EcoDex**
 
 EcoDex is a Next.js web application that identifies plants and bugs using AI. Users can upload images via file input, URL, or a camera capture, and the app processes these images using a backend API.
