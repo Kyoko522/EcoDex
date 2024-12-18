@@ -1,6 +1,4 @@
-Here is the updated README.md in Markdown format, ready for you to copy directly into your Obsidian vault or project:
-
-EcoDex
+## EcoDex
 
 EcoDex is a Next.js web application that identifies plants and bugs using AI. Users can upload images via file input, URL, or a camera capture, and the app processes these images using a backend API.
 
@@ -139,14 +137,14 @@ git checkout -b feature/your-feature
 
 
 	3.	Commit your changes:
-
+```
 git commit -m "Add feature"
-
+```
 
 	4.	Push to the branch:
-
+```
 git push origin feature/your-feature
-
+```
 
 	5.	Open a pull request.
 
