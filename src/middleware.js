@@ -25,7 +25,7 @@ export async function middleware(request) {
   const { data: { user } } = await supabase.auth.getUser()
 
   // Define protected routes -> only accessible after authentication
-  const protectedRoutes = ['/view/private', '/view/database', '/view/vision']
+  const protectedRoutes = ['/view/private', '/view/database', '/view/vision', '/view/admin', '/view/admin/access']
 
   // Redirect unauthenticated users accessing protected routes
   if (!user && protectedRoutes.includes(request.nextUrl.pathname)) {
