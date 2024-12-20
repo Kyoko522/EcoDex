@@ -1,15 +1,22 @@
 'use client';
 
 export default function ErrorPage() {
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Oops! Something Went Wrong</h1>
       <p style={styles.description}>
         We encountered an unexpected issue. Please try refreshing the page or come back later.
       </p>
-      <button style={styles.button} onClick={() => window.location.reload()}>
+      <button style={styles.button} onClick={handleRefresh} type="button">
         Refresh Page
-      </button>
+      </button>    
+      <a href="/view/login" style={styles.link}>
+        Login Page
+      </a>
       <a href="/" style={styles.link}>
         Go to Homepage
       </a>
