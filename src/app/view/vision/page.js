@@ -100,7 +100,7 @@ const Vision = () => {
     return (
         <div className="gameboy-container">
             <div className="fake-buttons">
-                <a className="button-a">A</a>
+                <a href="/view/admin" className="button-a">A</a>
                 <a href="/" className='button-b'>B</a>
                 <a className="button-c">C</a>
                 <a href="./database" className="button-d">D</a>
