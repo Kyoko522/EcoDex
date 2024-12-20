@@ -22,5 +22,5 @@ export async function GET(request) {
   }
 
   // redirect the user to an error page with some instructions
-  redirect('/error')
+  redirect('/view/error')
 }
