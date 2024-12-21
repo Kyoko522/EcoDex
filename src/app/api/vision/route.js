@@ -17,7 +17,7 @@ export async function POST(request) {   // -> request is the image url passed to
     }
     
     try {
-        // Construct the request for OpenAI with the formatted image input
+        // Construct the request for OpenAI with the formatted image url
         const response = await openai.chat.completions.create({
             model: "gpt-4o",
             messages: [
@@ -27,9 +27,9 @@ export async function POST(request) {   // -> request is the image url passed to
                 },
             ],
         });
-
+        //Handle the error 
         return new NextResponse(JSON.stringify(response.choices[0].message));
-    } catch (error) {
+    }catch (error) {   // Catch block for error handling only ran when the try failed
         return new NextResponse(
             JSON.stringify({ error: "Error generating response", details: error.message }),
             { status: 500 }
