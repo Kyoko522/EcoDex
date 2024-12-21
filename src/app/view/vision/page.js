@@ -3,11 +3,11 @@ import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
-import { setImageUrl } from "../../../shared";
+import { setImageUrl } from "../../../shared"; //Not needed 
 import "./vision.css";
 
 const Vision = () => {
-  // State hooks
+  // Usestates
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [response, setResponse] = useState(null);
@@ -25,7 +25,15 @@ const formik = useFormik({
     validationSchema: Yup.object({
       image_url: Yup.string()
         .url("Image URL is Invalid")
+
+        //Might not need this ----------------------------------------------------------------
+        // .when("image_base64",{
+        //     is: (image_base64) => !iamge_base64, //require URL only when no base64 is available
+        //     then: Yup.string().required("Image Base64 is required when no image URL is provided"), // Ensure the base64 is valid
+        // }),
+        // --------------------------------------------------------------------
         .required("Image URL is required when no image is captured"), // Ensure the URL is valid
+        //un comment the above statement if you commonet out the might not need section above that
     }),
     onSubmit: async (values) => {
       setLoading(true);
@@ -35,7 +43,7 @@ const formik = useFormik({
       try {
         // Include the capturedImage as `image_base64` if available
         const payload = capturedImage
-          ? { base64_image: capturedImage } // Use captured base64 image
+          ? { base64_image: values.image_base64 } // Use captured base64 image
           : { image_url: values.image_url }; // Use provided image URL
         
         console.log("Payload being set: ", payload);
@@ -99,7 +107,7 @@ const formik = useFormik({
       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/png");
       setCapturedImage(dataUrl);
-    //   console.log("Captured image", dataUrl);
+      console.log("Captured image", dataUrl);
       formik.setFieldValue("image_base64", dataUrl);
     }
   };
