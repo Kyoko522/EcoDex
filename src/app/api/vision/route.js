@@ -1,28 +1,21 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import OpenAI from "openai";                    //-> OpenAI api
 
-// Authentication
+// Initialize OpenAI API with the provided API key found in .emv file
 const openai = new OpenAI({
     apiKey: process.env.openai_key,
 });
 
-export async function POST(request) {
-    const { image_url, base64_image } = await request.json();  // Destructure both image_url and base64_image from the request body
-    let imageInput;
-    if (image_url) {
-        // If image URL is provided, use it directly
-        imageInput = image_url;
-    } else if (base64_image) {
-        // If base64 image is provided, format it as a data URL
-        imageInput = `data:image/jpeg;base64,${base64_image}`;
-    } else {
-        // If neither is provided, return an error
+export async function POST(request) {   // -> request is the image url passed to the api
+    const { image_url } = await request.json();  // Destructure both image_url and from the request body (json)
+
+    if (!image_url) {    // If image url is not found response with a error message
         return new NextResponse(
             JSON.stringify({ error: "No image or url data provided" }),
             { status: 400 }
         );
     }
-
+    
     try {
         // Construct the request for OpenAI with the formatted image input
         const response = await openai.chat.completions.create({
@@ -30,7 +23,7 @@ export async function POST(request) {
             messages: [
                 {
                     role: "user",
-                    content: `content: "You are an EcoDex, designed to identify and provide comprehensive information about plants and bugs from images. For plants, respond with structured information in this format: <Plant Name>. <Brief Description>. <Key Features>. <Habitat>. <Care Tips>. For example, if the image shows a rose, respond with: Rose. A flowering plant belonging to the genus Rosa, in the family Rosaceae. Known for its beauty and fragrance, it is a popular choice in gardens and floral arrangements. Roses range from miniature types to climbers up to 7 m in height. Common varieties include hybrid teas and floribundas. They thrive in full sun, well-drained fertile soil, and require watering twice weekly. If no plant is identifiable, respond with: No plant identified. For bugs, respond with structured information in this format: <Bug Name>. <Brief Description>. <Key Features>. <Role in Ecosystem>. <Management Tips>. For example, if the image shows a beetle, respond with: Beetle. Insects of the order Coleoptera, characterized by hardened forewings. Beetles play diverse roles, from agricultural pests to natural pest controllers. Found in habitats ranging from deserts to rainforests. Feeding habits depend on species, including plants, smaller insects, or organic matter. Average lifespan is 1–3 years. To manage infestations, use predators like birds or organic pesticides like neem oil. If no bug is identifiable, respond with: No bug identified. For unclear or irrelevant images, such as those containing text, unrelated objects, or insufficient detail, respond with: No object identified. Always ensure responses are accurate, structured, and concise, avoiding speculation unless supported by clear evidence in the image. Use the response format <Category (Plant/Bug)>: <Details> for clarity and to facilitate programmatic extraction. For example, an appropriate response for a plant would be: Plant: Rose. A flowering plant... and for a bug: Bug: Beetle. Insects of the order...." ${imageInput}`,
+                    content: `content: You are an EcoDex, designed to identify and provide comprehensive information about plants and bugs from images or descriptions. For plants, respond with structured information in this format: Identification: . . . Description: Include key details such as coloration, physical features, size, habitat, and any special characteristics. Care Tips: Provide actionable care instructions, including ideal light, water, soil, and pruning requirements. For bugs, respond with structured information in this format: Identification: . . . Description: Include key details such as coloration, physical features (e.g., legs, wings, body), size, habitat, and special characteristics. Role in Ecosystem: Describe the organism’s ecological role, such as its diet, interactions with other species, or its impact on the environment. Management Tips: Provide actionable advice for managing or protecting the organism, depending on whether it is a pest or beneficial species. If the input contains an unclear or irrelevant image or description, respond with: No object identified. The image or description provided does not contain enough details to identify a specific plant or bug. Always ensure responses are accurate, structured, and concise, avoiding speculation unless supported by clear evidence in the input. Use the response format <Category (Plant/Bug)>:  for clarity and to facilitate programmatic extraction.” ${image_url}`,
                 },
             ],
         });
