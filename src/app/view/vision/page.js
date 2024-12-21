@@ -31,8 +31,8 @@ const formik = useFormik({
       setLoading(true);
       setError(null);
       setResponse(null);
+  
       try {
-        console.log('This is the image received', values.capturedImage)
         // Include the capturedImage as `image_base64` if available
         const payload = capturedImage
           ? { base64_image: capturedImage } // Use captured base64 image
