@@ -13,12 +13,14 @@ const Vision = () => {
   const [response, setResponse] = useState(null);
   const [cameraMode, setCameraMode] = useState(false); // Toggle camera
   const [capturedImage, setCapturedImage] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(false); // Full-screen mode
   const videoRef = useRef(null);
 
-  // Formik setup
-  const formik = useFormik({
+// Formik setup
+const formik = useFormik({
     initialValues: {
       image_url: "", // Initial value for the URL field
+      image_base64: "", // Initial value for the base64
     },
     validationSchema: Yup.object({
       image_url: Yup.string()
@@ -29,12 +31,15 @@ const Vision = () => {
       setLoading(true);
       setError(null);
       setResponse(null);
-
       try {
+        console.log('This is the image received', values.capturedImage)
+        // Include the capturedImage as `image_base64` if available
         const payload = capturedImage
-          ? { base64_image: capturedImage } // Send base64 image if captured
-          : { image_url: values.image_url }; // Send URL if provided
-
+          ? { base64_image: capturedImage } // Use captured base64 image
+          : { image_url: values.image_url }; // Use provided image URL
+        
+        console.log("Payload being set: ", payload);
+  
         const res = await fetch("/api/vision", {
           method: "POST",
           headers: {
@@ -42,11 +47,11 @@ const Vision = () => {
           },
           body: JSON.stringify(payload),
         });
-
+  
         if (!res.ok) {
           throw new Error("Failed to fetch the response");
         }
-
+  
         const data = await res.json();
         setResponse(data);
       } catch (error) {
@@ -94,7 +99,14 @@ const Vision = () => {
       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/png");
       setCapturedImage(dataUrl);
+    //   console.log("Captured image", dataUrl);
+      formik.setFieldValue("image_base64", dataUrl);
     }
+  };
+
+  // Toggle full-screen view
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
   };
 
   return (
@@ -116,10 +128,22 @@ const Vision = () => {
 
       {/* Screen */}
       <section className="screen">
-        {cameraMode ? (
+        {isFullScreen ? (
+          <img
+            src={capturedImage}
+            alt="Full-Screen Captured"
+            className="full-screen-image"
+            onClick={toggleFullScreen} // Exit full-screen on click
+          />
+        ) : cameraMode ? (
           <video ref={videoRef} className="video-feed" />
         ) : capturedImage ? (
-          <img src={capturedImage} alt="Captured" className="image-preview" />
+          <img
+            src={capturedImage}
+            alt="Captured"
+            className="image-preview"
+            onClick={toggleFullScreen} // Enter full-screen on click
+          />
         ) : formik.values.image_url ? (
           <img src={formik.values.image_url} alt="URL Preview not Found" className="image-preview" />
         ) : (
