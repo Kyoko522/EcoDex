@@ -112,9 +112,40 @@ const formik = useFormik({
     }
   };
 
+   // Handle file upload
+   const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result;
+      setCapturedImage(base64); // Set the uploaded image as captured
+      formik.setFieldValue("image_base64", base64); // Set Base64 in Formik
+      console.log("Uploaded image (Base64):", base64);
+    };
+    reader.readAsDataURL(file); // Convert file to Base64
+  };
+
   // Toggle full-screen view
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
+  };
+
+  // Resize uploaded/taken image
+  const handleResize = (file, callback) => {
+    Resizer.imageFileResizer(
+      file,             // Input image file
+      512,              // Target width in pixels
+      512,              // Target height in pixels
+      "JPEG",           // Output format
+      90,               // Quality (0-100)
+      0,                // Rotation (0 degrees)
+      (uri) => {        // Callback function with resized Base64 result
+        callback(uri);
+      },
+      "base64"          // Output type
+    );
   };
 
   return (
@@ -184,6 +215,15 @@ const formik = useFormik({
               Capture Image
             </button>
           )}
+
+          {/* File upload button for testing */}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="file-upload"
+          />
+
 
           <button type="submit" disabled={formik.isSubmitting || !formik.isValid} className="start-button">
             {loading ? <FaSpinner className="spinner" /> : "Analyze"}
