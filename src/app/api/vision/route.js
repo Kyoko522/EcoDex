@@ -44,4 +44,5 @@ export async function POST(request) {   // -> request is the image url passed to
     }
 }
 
-// TODO: Have to add stuff that will handle image to base64 ->
+// TODO: Have to add stuff that will handle image to base64
+// TODO: Have the api respond with a json object so you can get states
