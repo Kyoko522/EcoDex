@@ -33,7 +33,7 @@ const formik = useFormik({
         // }),
         // --------------------------------------------------------------------
         .required("Image URL is required when no image is captured"), // Ensure the URL is valid
-        //un comment the above statement if you commonet out the might not need section above that
+        //uncomment the above statement if you commonet out the might not need section above that
     }),
     onSubmit: async (values) => {
       setLoading(true);
@@ -216,20 +216,19 @@ const formik = useFormik({
             </button>
           )}
 
-          {/* File upload button for testing */}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileUpload}
-            className="file-upload"
-          />
-
-
           <button type="submit" disabled={formik.isSubmitting || !formik.isValid} className="start-button">
             {loading ? <FaSpinner className="spinner" /> : "Analyze"}
           </button>
+
+            {/* File upload button for testing */}
+        <input className="start-button"
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+          />
         </form>
       </section>
+
 
       {/* Error Message */}
       {error && (
