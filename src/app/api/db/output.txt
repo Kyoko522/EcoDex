@@ -1,1 +1,0 @@
-Hello, this content will be written to a file.
