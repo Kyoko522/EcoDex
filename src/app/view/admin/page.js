@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AdminAccessPage() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // Fetch users once authenticated
+    if (isAuthenticated) {
+      fetchUsers();
+    }
+  }, [isAuthenticated]);
 
   const handleLogin = () => {
-    // Fetch the admin password from the environment variable
     const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
     if (password === adminPassword) {
@@ -16,6 +23,27 @@ export default function AdminAccessPage() {
       setError('');
     } else {
       setError('Incorrect password. Please try again.');
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
+
+      const data = await response.json();
+      setUsers(data.users); // Assuming the response JSON structure has a `users` array
+    } catch (err) {
+      console.error('Failed to fetch users:', err);
+      setError('Failed to load user data. Please try again later.');
     }
   };
 
@@ -44,10 +72,34 @@ export default function AdminAccessPage() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Admin Panel</h1>
-      <p style={styles.description}>
-        Welcome to the admin panel. Here you can manage users.
-      </p>
-      {/* Add your user management UI here */}
+      <p style={styles.description}>Welcome to the admin panel. Here is the list of users:</p>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.length > 0 ? (
+            users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.email}</td>
+                <td>{new Date(user.created_at).toLocaleString()}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" style={styles.noData}>
+                No users found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <button href='/'> Back </button>
     </div>
   );
 }
@@ -92,5 +144,14 @@ const styles = {
   error: {
     color: 'red',
     marginTop: '1rem',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginTop: '20px',
+  },
+  noData: {
+    textAlign: 'center',
+    padding: '20px',
   },
 };

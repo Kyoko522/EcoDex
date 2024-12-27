@@ -17,3 +17,24 @@ fs.writeFile('output.txt', data, (err) => {
         console.log("File written successfully!");
     }
 });
+
+// ----------------------------------------------------------------
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseURL = 'in env file';
+const supabaseAnoKey = 'in env file';
+
+const supabase = createClient(supabaseURL, supabaseAnoKey);
+
+async function getUsers(){
+    const { data, error } = await supabase.from('users').select('*');
+    if (error) {
+        console.error('Error fetching users:', error);
+    } else {
+        console.log('Users:', data);
+    }
+}
+
+getUsers();
+
+asy
